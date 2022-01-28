@@ -11,7 +11,32 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.submit %>
+    <h1 class="title has-text-centered is size-4">
+      New Trait
+    </h1>
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <%= form.text_field :name,class:"input",placeholder: "Grassthrower" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Trait Type</label>
+      <div class="control">
+        <div class="select">
+          <select>
+            <option>Select dropdown</option>
+            <option>With options</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class:"button is-link" %>
+      </div>
+    </div>
+    <div>
   </div>
 <% end %>

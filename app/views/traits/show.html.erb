@@ -1,11 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<div class="center">
+  <p style="color: green"><%= notice %></p>
 
-<%= render @trait %>
+  <%= render @trait %>
 
-<div>
-  <% if trainer_signed_in? %>
-      <%= link_to "Edit this trait", edit_trait_path(@trait) %> |
-      <%= button_to "Destroy this trait", @trait, method: :delete, class: "button is-danger is-outlined"%>
-  <%end%>
-  <%= link_to "Back to traits", traits_path %>
+  <div class="center-text">
+    <% if trainer_signed_in? %>
+        <%= link_to "Edit this trait", edit_trait_path(@trait) %>
+        <%= button_to "Destroy this trait", @trait, method: :delete, class: "button is-danger is-outlined"%>
+    <%end%>
+    <div>
+      <%= link_to "Back to traits", traits_path %>
+    </div>
+    <br><br>
+  </div>
 </div>

@@ -2,7 +2,16 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put },data:{turbo: false}) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="field">
+    <%= f.label :trainer_tag %><br />
+    <%= f.text_field :trainer_tag, autofocus: true, autocomplete: "trainer tag" %>
+  </div>
 
+  <div class="field">
+    <%= f.label :team_name %><br />
+    <%= f.text_field :team_name , autofocus: true, autocomplete: "team name" %>
+  </div>
+  
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

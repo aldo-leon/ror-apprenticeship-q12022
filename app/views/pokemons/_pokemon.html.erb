@@ -1,6 +1,49 @@
-<div class ="card">
-  <div id="<%= dom_id pokemon %>">
-    <%= pokemon.name%>
-    <%= image_tag pokemon.sprite %>
+<div class="column is-half-tablet is-4-desktop has-text-centered">
+  <div class ="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        <%= pokemon.name.capitalize%> #<%= pokemon.pokedex_number%>
+      </p>
+    </header>
+    <div id="<%= dom_id pokemon %>">
+      <div class="card-image">
+         <figure class="image is-square">
+           <%= image_tag pokemon.sprite,alt: "#{pokemon.name}"%>
+         </figure>
+       </div>
+       <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <% pokemon.traits.each do |trait| %>
+              <p>
+                <h4><%=trait.trait_type.capitalize%> : <%=trait.name.capitalize%></h4>
+              </p>
+            <% end%>
+          </div>
+          <% if trainer_signed_in? %>
+            <%if current_trainer.pokemons.include?(pokemon) %>
+                <%= link_to unfav_path(name: pokemon.name,trainer: current_trainer.trainer_tag), data: { "turbo-method": :put } do  %>
+                  <div class="hover-animation2">
+                    <%= image_tag '/grey_favorite_pokeball.png',alt: 'grey Pokeball', class: "img-back"%>
+                    <%= image_tag '/favorite_pokeball.png',alt: 'Pokeball', class: "img-front"%>
+                  </div>
+                <% end %>
+              <%else%>
+                <%= link_to fav_path(name: pokemon.name,trainer: current_trainer.trainer_tag), data: { "turbo-method": :put } do  %>
+                  <div class="hover-animation">
+                    <%= image_tag '/grey_favorite_pokeball.png',alt: 'grey Pokeball', class: "img-front"%>
+                    <%= image_tag '/favorite_pokeball.png',alt: 'Pokeball', class: "img-back"%>
+                  </div>
+                <%end%>
+            <%end%>
+            <br>
+            <p>
+              <%= link_to "Show this pokemon", pokemon %>
+            </p>
+          <%end%>
+          <br>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

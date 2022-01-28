@@ -1,1 +1,20 @@
-HI :D
+<p style="color: green"><%= notice %></p>
+<section class="section">
+  <div class ="container">
+    <h1 class="title has-text-centered is size-4">
+      Pokemons
+    </h1>
+    
+    <div class="right-side">
+      <% if trainer_signed_in? %>
+        <%= link_to "New pokemon", new_pokemon_path%>
+      <%end%>
+    </div>
+    <br>
+    <div class="columns is-multiline is-vcentered">
+        <% @pokemons.each do | pokemon| %>
+          <%= render pokemon %>
+        <% end %>
+      </div>
+  </div>
+</section>

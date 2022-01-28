@@ -17,9 +17,11 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
+      <% if trainer_signed_in? %>
       <a>
-        <%= link_to "My Team",team_path, class: "navbar-item" %>
+        <%= link_to "#{current_trainer.team_name}",team_path(trainer: current_trainer.trainer_tag), class: "navbar-item" %>
       </a>
+      <%end%>
       <a>
         <%= link_to "Traits",traits_path, class: "navbar-item" %>
       </a>
@@ -30,12 +32,8 @@
       <div class="navbar-item">
         <div class="buttons">
           <% if trainer_signed_in? %>
-            <a class="button is-link is-inverted is-primary " >
-
-
-            <%= link_to "Logout", destroy_trainer_session_path, method: 'delete'%>
-            </a>
-
+            <%= link_to current_trainer.trainer_tag.capitalize, edit_trainer_registration_path, class: "button is-link is-inverted is-primary "%>
+            <%= button_to "Logout", destroy_trainer_session_path, :method => "delete",class: "button is-link is-inverted is-light"%>
           <% else %>
             <%= link_to "Sign Up", new_trainer_registration_path, class: "button is-link is-inverted is-light" %>
             <%= link_to "Log in", new_trainer_session_path, class: "button is-link is-inverted is-primary " %>

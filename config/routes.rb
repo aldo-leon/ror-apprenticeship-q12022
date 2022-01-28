@@ -6,10 +6,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pokemons#index"
+
   namespace :api do
     resources :pokemons
   end
   get '/team', to: 'pokemons#team'
-
-
+  put '/fav', to: 'pokemons#fav'
+  put '/unfav', to: 'pokemons#unfav'
+  resources :pokemons do
+    collection do
+      get :items
+    end
+  end
 end

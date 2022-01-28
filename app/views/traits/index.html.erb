@@ -1,23 +1,42 @@
 <p style="color: green"><%= notice %></p>
-
-<h1>Traits</h1>
+<div class ="container">
+  <h1 class="title has-text-centered is size-4">
+    Traits
+  </h1>
+  <div class="columns is-multiline is-vcentered">
+    <div class="column is-half-tablet is-4-desktop  has-text-centered ">
+       <%= link_to "Items", traits_path(trait_type: "item"), class: "button is-link is-inverted" %>
+    </div>
+    <div class="column is-half-tablet is-4-desktop has-text-centered ">
+       <%= link_to "Abilities", traits_path(trait_type: "ability"), class: "button is-link is-inverted" %>
+    </div>
+    <div class="column is-half-tablet is-4-desktop  has-text-centered ">
+       <%= link_to "Types", traits_path(trait_type: "type"), class: "button is-link is-inverted" %>
+    </div>
+  </div>
+</div>
 <div class="right-side">
   <% if trainer_signed_in? %>
     <%= link_to "New trait", new_trait_path %>
   <%end%>
 </div>
-<div id="traits">
+<br>
+<div class="tight-pagi has-text-centered" style="padding-bottom: 15px">
+  <%= link_to_unless_current "12",traits_path(items: 12,trait_type: params[:trait_type])%>
+  <%= link_to_unless_current "24",traits_path(items: 24,trait_type: params[:trait_type])%>
+  <%= link_to_unless_current "48",traits_path(items: 48,trait_type: params[:trait_type])%>
+  <%= link_to_unless_current "96",traits_path(items: 96,trait_type: params[:trait_type])%>
+  <%== pagy_bulma_nav(@pagy) %>
+</div>
+<div class="columns is-multiline is-vcentered">
   <% @traits.each do |trait| %>
     <%= render trait %>
-    <p>
-      <%= link_to "Show this trait", trait %>
-    </p>
   <% end %>
 </div>
 <div class="tight-pagi has-text-centered" style="padding-bottom: 15px">
   <%== pagy_bulma_nav(@pagy) %>
-  <%= link_to_unless_current "10",pokemons_path(items: 10)%>
-  <%= link_to_unless_current "25",pokemons_path(items: 25)%>
-  <%= link_to_unless_current "50",pokemons_path(items: 50)%>
-  <%= link_to_unless_current "100",pokemons_path(items: 100)%>
+  <%= link_to_unless_current "12",traits_path(items: 12,trait_type: params[:trait_type])%>
+  <%= link_to_unless_current "24",traits_path(items: 24,trait_type: params[:trait_type])%>
+  <%= link_to_unless_current "48",traits_path(items: 48,trait_type: params[:trait_type])%>
+  <%= link_to_unless_current "96",traits_path(items: 96,trait_type: params[:trait_type])%>
 </div>

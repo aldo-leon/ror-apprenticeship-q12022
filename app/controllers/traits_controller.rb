@@ -3,8 +3,20 @@ class TraitsController < ApplicationController
 
   # GET /traits or /traits.json
   def index
-    @pagy, @traits = pagy(Trait.all)
-    # @traits = Trait.all
+    if params[:trait_type].nil?
+      @pagy, @traits = pagy(Trait.all)
+    else
+      case params[:trait_type]
+      when "item"
+        @pagy, @traits = pagy(Trait.where(trait_type: "item"))
+      when "ability"
+        @pagy, @traits = pagy(Trait.where(trait_type: "ability"))
+      when "type"
+        @pagy, @traits = pagy(Trait.where(trait_type: "type"))
+      else
+        @pagy, @traits = pagy(Trait.all)
+      end
+    end
   end
 
   # GET /traits/1 or /traits/1.json

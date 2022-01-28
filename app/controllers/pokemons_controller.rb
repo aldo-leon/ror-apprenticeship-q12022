@@ -1,7 +1,7 @@
 class PokemonsController < ApplicationController
   before_action :set_pokemon, only: %i[show edit update destroy]
   protect_from_forgery prepend: true
-  before_action :authenticate_trainer!, only: %i[new create edit update remove destroy]
+  before_action :authenticate_trainer!, only: %i[new create edit update remove destroy team]
   # GET /pokemons or /pokemons.json
   def index
     if params[:gen].nil? || !(params[:gen].to_i.between?(1,8))
@@ -43,8 +43,7 @@ class PokemonsController < ApplicationController
 
   # POST /pokemons or /pokemons.json
   def create
-    @trainer = Trainer.find_by_trainer_tag("hehehe")
-    puts @trainer.trainer_tag
+
     @pokemon = Pokemon.new(pokemon_params)
     new_dexnumber = Pokemon.order(:pokedex_number).last.pokedex_number + 1
     @pokemon.pokedex_number = new_dexnumber
@@ -83,7 +82,41 @@ class PokemonsController < ApplicationController
   end
 
   def team
+    trainer = Trainer.find_by_trainer_tag(params[:trainer])
+    @pagy,@pokemons= pagy(trainer.pokemons)
+  end
 
+  def fav
+
+    trainer = Trainer.find_by_trainer_tag(params[:trainer])
+    if trainer.pokemons.count >= 6
+      flash[:notice] = "Only 6 Pokemons per Team!"
+      redirect_back fallback_location: root_path
+
+    else
+      poke = Pokemon.find_by_name(params[:name])
+      trainer.pokemons << poke
+      trainer.save
+      flash[:notice] = "#{poke.name.capitalize} Added to Team!"
+      redirect_back fallback_location: root_path
+    end
+  end
+
+  def unfav
+    trainer = Trainer.find_by_trainer_tag(params[:trainer])
+    poke = Pokemon.find_by_name(params[:name])
+    trainer.pokemons.delete(poke)
+    flash[:notice] = "#{poke.name.capitalize} Removed from Team!"
+    redirect_back fallback_location: root_path
+  end
+
+  def items
+    puts "huh"
+    @traits = Traits.where(trait_type: params[:trait])
+    @target = params[:target]
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private
@@ -95,7 +128,7 @@ class PokemonsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def pokemon_params
-    params.require(:pokemon).permit(:name, :height, :weight,:sprite)
+    params.require(:pokemon).permit(:name, :height, :weight, :sprite, :trainer)
   end
 end
 

@@ -10,26 +10,59 @@
       </ul>
     </div>
   <% end %>
-  <div>
-    <h3>Custom Pokemon</h3>
-    <table summary="New Custom pokemon form">
-    <tr>
-      <th>Name:<th>
-      <td><%= form.text_field :name %></td>
-    </tr>
-    <tr>
-      <th>Weight:<th>
-      <td><%= form.text_field :weight %></td>
-    </tr>
-    <tr>
-      <th>Height:<th>
-      <td><%= form.text_field :height %></td>
-    </tr>
-    <tr>
-      <th>Sprite(URL)<th>
-      <td><%= form.text_field :sprite, value: "https://via.placeholder.com/96" %></td>
-    </tr>
-    </table>
-    <%= form.submit %>
+
+    <h1 class="title has-text-centered is size-4">
+      New Pokemon
+    </h1>
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <%= form.text_field :name,class:"input",placeholder: "Newmon" %>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Weight</label>
+      <div class="control">
+        <%= form.number_field :weight,class:"input",placeholder:10 %>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Height</label>
+      <div class="control">
+        <%= form.number_field :height,class:"input",placeholder:10 %>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Sprite</label>
+      <div class="control">
+        <%= form.text_field :sprite,class:"input",value: "https://via.placeholder.com/96" %>
+      </div>
+    </div>
+
+    <!-- <div data-controller="pokemon">
+      <div class="field">
+        <label class="label">Traits</label>
+        <div class="control">
+          <div class="select">
+            <%= form.select :trait,["type", "ability", "item"],{prompt: "Select Trait Type"},{class:"input",data:{action:"change->pokemon#change"}} %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Select:</label>
+        <div class="control">
+          <div class="select">
+            <%= form.select :trait,[],{}, {class:"input",data:{test_target: "traitSelect"}} %>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <br>
+    <div class="field is-grouped">
+      <div class="control">
+        <%= form.submit class:"button is-link" %>
+      </div>
+    </div>
+    <div>
   </div>
 <% end %>

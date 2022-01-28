@@ -3,8 +3,8 @@ class Trainer < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :pokemon_poketeam
-  has_many :teams, :through => :pokemon_poketeam
+  has_many :trainer_pokemon
+  has_many :pokemons, :through => :trainer_pokemon
 
   EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
   validates :trainer_tag, :presence => true,
